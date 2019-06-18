@@ -1,0 +1,14 @@
+## schedule this to remove old data
+delete from dba.stat_statements_hist where now < now()   -interval '1 month' ;
+
+delete from dba.stat_all_indexes_hist where now < now()   -interval '1 month' ;
+
+delete from dba.statio_all_indexes_hist where now < now()   -interval '1 month' ;
+
+delete from dba.stat_all_tables_hist where now < now()   -interval '1 month' ;
+
+delete from dba.relation_size_hist where now < now()   -interval '1 month' ;
+
+delete from dba.statio_all_tables_hist where now < now()   -interval '1 month' ;
+
+delete from dba.stat_database_hist where now < now()   -interval '1 month' ;
