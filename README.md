@@ -29,7 +29,7 @@ pg_stat_statements.track = all
 proddb=# CREATE EXTENSION postgres_fdw;
 CREATE EXTENSION
 
-proddb=# CREATE SERVER pgstatsrv FOREIGN DATA WRAPPER postgres_fdw OPTIONS (host 'pgstage01ng', dbname 'statdb', port '5432');
+proddb=# CREATE SERVER pgstatsrv FOREIGN DATA WRAPPER postgres_fdw OPTIONS (host 'hoststage', dbname 'statdb', port '5432');
 CREATE SERVER
 
 proddb=#create role statusr login inherit superuser password 'statpwd';
@@ -112,7 +112,7 @@ on these you can make queries to see:
  
   index blocks read /hit per table /hour
 -
-   ```select * from idx_blks_hit_read_delta_by_table_by_hh where relname='mobile_logger'; ```
+   ```select * from idx_blks_hit_read_delta_by_table_by_hh where relname='table_name'; ```
  
  idx scan vs seq scan per schema
 -
@@ -136,7 +136,7 @@ on these you can make queries to see:
 sum(stat_statements_hist.calls) AS calls, sum(stat_statements_hist.total_time) AS tottime, 
  sum(stat_statements_hist.total_time) / sum(stat_statements_hist.calls)::double precision AS meantime
    FROM stat_statements_hist
-  WHERE stat_statements_hist.query ~~ '%mde_accounts_info%'::text
+  WHERE stat_statements_hist.query ~~ '%accounts_info%'::text
   GROUP BY date_trunc('day'::text, stat_statements_hist.now) 
   ORDER BY date_trunc('day'::text, stat_statements_hist.now) ;
   ```
@@ -149,7 +149,7 @@ sum(stat_statements_hist.calls) AS calls, sum(stat_statements_hist.total_time) A
     sum(stat_statements_hist.total_time) / sum(stat_statements_hist.calls)::double precision AS meantime 
 	into temporary table mean_time_by_queryid_by_statementtt
    FROM stat_statements_hist
-  WHERE stat_statements_hist.query ~~ '%mde_accounts_info%'::text  
+  WHERE stat_statements_hist.query ~~ '%accounts_info%'::text  
   GROUP BY date_trunc('day'::text, stat_statements_hist.now) , stat_statements_hist.queryid
   ORDER BY date_trunc('day'::text, stat_statements_hist.now) ;
   ```
@@ -173,30 +173,30 @@ proddb=#            select * from dba.scan_stats();
 
 Schema.Table: wms.master_bl:idx_scan_ratio:0.99988456758939211935 idx_scan:14657154496seq_scan: 1692106 row_estimate:1.98541e+06
  
- Top 5 Query on wms.master_bl by TotalTime
+ Top 5 Query on aaa.aaa1 by TotalTime
    QueryID:1272194133 - TotalTime:103074.732277 - Calls:112195 - MeanTime:0.918710568893443
    QueryID:2057377605 - TotalTime:41660.2824969991 - Calls:1343442 - MeanTime:0.0310101087333871
    QueryID:160020267 - TotalTime:38765.5858490002 - Calls:53748 - MeanTime:0.721247038940988
    QueryID:3779693044 - TotalTime:18283.942529 - Calls:134849 - MeanTime:0.13558826931605
    QueryID:236275832 - TotalTime:15175.1269129997 - Calls:719121 - MeanTime:0.0211023275818669
 
-  Top 5 Query on wms.master_bl by MeanTime
+  Top 5 Query on aaa.aaa1 by MeanTime
    QueryID:1815477615 - TotalTime:30.348434 - Calls:1 - MeanTime:30.348434
    QueryID:1582277696 - TotalTime:24.594455 - Calls:1 - MeanTime:24.594455
    QueryID:4138201970 - TotalTime:3773.01548 - Calls:3207 - MeanTime:1.17649375740568
    QueryID:3129877883 - TotalTime:38.287207 - Calls:40 - MeanTime:0.957180175
    QueryID:1272194133 - TotalTime:103074.732277 - Calls:112195 - MeanTime:0.918710568893443
 
-Schema.Table: tracking.os_orders:idx_scan_ratio:0.99991852985867954610 idx_scan:27664225573seq_scan: 2253992 row_estimate:1.78453e+06
+Schema.Table: trac.orders:idx_scan_ratio:0.99991852985867954610 idx_scan:27664225573seq_scan: 2253992 row_estimate:1.78453e+06
  
- Top 5 Query on tracking.os_orders by TotalTime
+ Top 5 Query on trac.orders by TotalTime
    QueryID:2369621365 - TotalTime:1320495.28835999 - Calls:182570 - MeanTime:7.23281639020644
    QueryID:1396774779 - TotalTime:267007.232035008 - Calls:645367 - MeanTime:0.413729292069485
    QueryID:1662757844 - TotalTime:206530.258677 - Calls:1847841 - MeanTime:0.111768414423644
    QueryID:286582148 - TotalTime:190337.523555 - Calls:1314360 - MeanTime:0.144813843661554
    QueryID:2677075312 - TotalTime:125141.145007 - Calls:119551 - MeanTime:1.04675950018821
  
- Top 5 Query on tracking.os_orders by MeanTime
+ Top 5 Query on trac.ordersby MeanTime
    QueryID:553618274 - TotalTime:320.867872 - Calls:1 - MeanTime:320.867872
    QueryID:1534924332 - TotalTime:283.958997 - Calls:1 - MeanTime:283.958997
    QueryID:2464265748 - TotalTime:260.023164 - Calls:1 - MeanTime:260.023164
