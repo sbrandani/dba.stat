@@ -42,8 +42,14 @@ CREATE USER MAPPING
 ```
 psql proddb < dba_schema.sql
 ```
-##### schedule the populate script (see populate file)
+##### create dba scan_stat procedure 
+Created a procedure to facilitate the identification of the most impactful queries on production database tables
+```
+psql statdb < scan_stats.sql
+```
 
+##### schedule the populate script 
+(see populate file)
 
 
 #
@@ -165,4 +171,15 @@ query associated to queryid
   
   queryid=3682175003
 ```
-
+ run function dba.scan_stats() 
+ -
+run procedure to facilitate the identification of the most impactful queries 
+-
+ ```
+ select dba.scan_stats();
+NOTICE:  Schema.Table: tracking.carton_movements:idx_scan_ratio:0.99620809073623728962 idx_scan:513208668s eq_scan: 1953446 row_estimate:620805
+NOTICE:  Top 5 Query on tracking.carton_movements by TotalTime
+NOTICE:   QueryID:3636622965 - TotalTime:1019.871505 - Calls:5268 - MeanTime:0.193597476271829
+NOTICE:   QueryID:3716925653 - TotalTime:48.045844 - Calls:564 - MeanTime:0.0851876666666666
+NOTICE:   QueryID:1329548169 - TotalTime:0.257793 - Calls:9 - MeanTime:0.0286436666666667
+ ```
