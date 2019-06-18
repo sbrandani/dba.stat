@@ -176,10 +176,38 @@ query associated to queryid
 run procedure to facilitate the identification of the most impactful queries 
 -
  ```
- select dba.scan_stats();
-NOTICE:  Schema.Table: tracking.carton_movements:idx_scan_ratio:0.99620809073623728962 idx_scan:513208668s eq_scan: 1953446 row_estimate:620805
-NOTICE:  Top 5 Query on tracking.carton_movements by TotalTime
-NOTICE:   QueryID:3636622965 - TotalTime:1019.871505 - Calls:5268 - MeanTime:0.193597476271829
-NOTICE:   QueryID:3716925653 - TotalTime:48.045844 - Calls:564 - MeanTime:0.0851876666666666
-NOTICE:   QueryID:1329548169 - TotalTime:0.257793 - Calls:9 - MeanTime:0.0286436666666667
+ statwebtng=#            select * from dba.scan_stats();
+
+Schema.Table: wms.master_bl:idx_scan_ratio:0.99988456758939211935 idx_scan:14657154496seq_scan: 1692106 row_estimate:1.98541e+06
+ 
+ Top 5 Query on wms.master_bl by TotalTime
+   QueryID:1272194133 - TotalTime:103074.732277 - Calls:112195 - MeanTime:0.918710568893443
+   QueryID:2057377605 - TotalTime:41660.2824969991 - Calls:1343442 - MeanTime:0.0310101087333871
+   QueryID:160020267 - TotalTime:38765.5858490002 - Calls:53748 - MeanTime:0.721247038940988
+   QueryID:3779693044 - TotalTime:18283.942529 - Calls:134849 - MeanTime:0.13558826931605
+   QueryID:236275832 - TotalTime:15175.1269129997 - Calls:719121 - MeanTime:0.0211023275818669
+
+  Top 5 Query on wms.master_bl by MeanTime
+   QueryID:1815477615 - TotalTime:30.348434 - Calls:1 - MeanTime:30.348434
+   QueryID:1582277696 - TotalTime:24.594455 - Calls:1 - MeanTime:24.594455
+   QueryID:4138201970 - TotalTime:3773.01548 - Calls:3207 - MeanTime:1.17649375740568
+   QueryID:3129877883 - TotalTime:38.287207 - Calls:40 - MeanTime:0.957180175
+   QueryID:1272194133 - TotalTime:103074.732277 - Calls:112195 - MeanTime:0.918710568893443
+
+Schema.Table: tracking.os_orders:idx_scan_ratio:0.99991852985867954610 idx_scan:27664225573seq_scan: 2253992 row_estimate:1.78453e+06
+ 
+ Top 5 Query on tracking.os_orders by TotalTime
+   QueryID:2369621365 - TotalTime:1320495.28835999 - Calls:182570 - MeanTime:7.23281639020644
+   QueryID:1396774779 - TotalTime:267007.232035008 - Calls:645367 - MeanTime:0.413729292069485
+   QueryID:1662757844 - TotalTime:206530.258677 - Calls:1847841 - MeanTime:0.111768414423644
+   QueryID:286582148 - TotalTime:190337.523555 - Calls:1314360 - MeanTime:0.144813843661554
+   QueryID:2677075312 - TotalTime:125141.145007 - Calls:119551 - MeanTime:1.04675950018821
+ 
+ Top 5 Query on tracking.os_orders by MeanTime
+   QueryID:553618274 - TotalTime:320.867872 - Calls:1 - MeanTime:320.867872
+   QueryID:1534924332 - TotalTime:283.958997 - Calls:1 - MeanTime:283.958997
+   QueryID:2464265748 - TotalTime:260.023164 - Calls:1 - MeanTime:260.023164
+   QueryID:100829061 - TotalTime:222.916521 - Calls:1 - MeanTime:222.916521
+   QueryID:2369621365 - TotalTime:1320495.28835999 - Calls:182570 - MeanTime:7.23281639020644
+
  ```
