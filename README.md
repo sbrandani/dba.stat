@@ -126,7 +126,7 @@ select * from idx_scan_by_schema
   -
   select * from idx_scan_by_table_by_day  where schemaname='crm' and relname ='mde_accounts_info' order by idx_scan_ratio;
   
- -- mean medio , total , num calls  per statements per table/day
+ -- mean time , total , num calls  per statements per table/day
   -
   SELECT date_trunc('day'::text, stat_statements_hist.now) AS "Day", 
 sum(stat_statements_hist.calls) AS calls, sum(stat_statements_hist.total_time) AS tottime, 
@@ -136,7 +136,7 @@ sum(stat_statements_hist.calls) AS calls, sum(stat_statements_hist.total_time) A
   GROUP BY date_trunc('day'::text, stat_statements_hist.now) 
   ORDER BY date_trunc('day'::text, stat_statements_hist.now) ;
   
- -- mean medio , total , num calls  per statements per table/day/ queryid 
+ -- mean time , total , num calls  per statements per table/day/ queryid 
   -
    SELECT date_trunc('day'::text, stat_statements_hist.now) AS "Day",
     stat_statements_hist.queryid,
