@@ -3,6 +3,7 @@
 #
 
 crontab -l|grep dba
+
 0 * * * * sh /var/lib/pgsql/scripts/dba__stat_hist.sh  >> /var/lib/pgsql/scripts/dba__stat_hist.log  2>&1
 
 #
