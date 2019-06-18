@@ -1,0 +1,30 @@
+#
+### Crontab entry
+#
+
+crontab -l|grep dba
+0 * * * * sh /var/lib/pgsql/scripts/dba__stat_hist.sh  >> /var/lib/pgsql/scripts/dba__stat_hist.log  2>&1
+
+#
+### populate script bash
+#
+
+cat /var/lib/pgsql/scripts/dba__stat_hist.sh
+PGPASSWORD=statpwd psql -h proddb_host proddb -U statusr < /var/lib/pgsql/scripts/dba__stat_hist.sql >> /var/lib/pgsql/scripts/dba__stat_hist.log  2>&1
+
+#
+### populate script sql
+#
+
+cat /var/lib/pgsql/scripts/dba__stat_hist.sql
+
+insert into dba.stat_all_tables_hist select now(), * from pg_stat_all_tables;
+insert into dba.db_size_hist select now(),  pg_size_pretty(pg_database_size(current_database ())) ;
+insert into dba.stat_database_hist   select now(), * from pg_stat_database where datname='proddb';
+insert into dba.stat_all_indexes_hist select now(), * from pg_stat_all_indexes;
+insert into dba.stat_statements_hist select now(), * from pg_stat_statements;
+insert into dba.statio_all_tables_hist select now(), * from pg_statio_all_tables;
+insert into dba.statio_all_indexes_hist select now(), * from pg_statio_all_indexes;
+insert into dba.relation_size_hist select now(), * from dba.relation_pretty_size;
+
+
