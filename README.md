@@ -176,7 +176,7 @@ query associated to queryid
 run procedure to facilitate the identification of the most impactful queries 
 -
  ```
- statwebtng=#            select * from dba.scan_stats();
+proddb=#            select * from dba.scan_stats();
 
 Schema.Table: wms.master_bl:idx_scan_ratio:0.99988456758939211935 idx_scan:14657154496seq_scan: 1692106 row_estimate:1.98541e+06
  
