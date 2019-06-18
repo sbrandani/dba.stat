@@ -163,14 +163,7 @@ trend of a queryid
   select * from mean_time_by_queryid_by_statementtt where queryid=3682175003;
   ```
 
-query associated to queryid
- -
- ```select distinct(query) from stat_statements_hist where queryid=1014408401;
-    (select accountsin0_.md_entry_id as md_entry1_28_0_, accountsin0_.account as account2_29_0_, accountsin0_.currency as currency3_29_0_, accountsin0_.type as type4_29_
-0_ from crm.mde_accounts_info accountsin0_ where accountsin0_.md_entry_id=$1)
-  
-  queryid=3682175003
-```
+
  run function dba.scan_stats() 
  -
 run procedure to facilitate the identification of the most impactful queries 
