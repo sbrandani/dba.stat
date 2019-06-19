@@ -2,8 +2,7 @@
 
 -- DROP FUNCTION dba.scan_stats();
 
-CREATE OR REPLACE FUNCTION dba.scan_stats(
-	)
+CREATE OR REPLACE FUNCTION dba.scan_stats(v_rowest integer, v_seqscan 	integer)
     RETURNS void
     LANGUAGE 'plpgsql'
 
@@ -20,7 +19,7 @@ my_queryid RECORD;
 BEGIN
 set search_path='dba';
     -- 
-FOR my_list IN (select schemaname,relname,idx_scan_ratio,idx_scan,seq_scan,row_estimate  FROM dba.idx_scan_ratiov2  where row_estimate > 499999 and seq_scan> 1000000  order by v2  ) LOOP
+FOR my_list IN (select schemaname,relname,idx_scan_ratio,idx_scan,seq_scan,row_estimate  FROM dba.idx_scan_ratiov2  where row_estimate > v_rowest and seq_scan> v_seqscan  order by v2  ) LOOP
 RAISE NOTICE 'Schema.Table: %.%:idx_scan_ratio:% idx_scan:%seq_scan: % row_estimate:%', my_list.schemaname,my_list.relname , my_list.idx_scan_ratio , my_list.idx_scan ,my_list.seq_scan, my_list.row_estimate  ;
 RAISE NOTICE 'Top 5 Query on %.% by TotalTime',my_list.schemaname,my_list.relname ;
 FOR my_queryid IN (    SELECT                                                                                                                           
